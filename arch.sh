@@ -19,6 +19,8 @@ dialog --defaultno --title "Time Zone select" --yesno "Do you want use the defau
 timedatectl set-ntp true
 
 dialog --infobox "Updating mirrorlist..." 4 40
+
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.backup
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 

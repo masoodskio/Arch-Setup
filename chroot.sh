@@ -1,6 +1,7 @@
 passwd
 
 TZuser=$(cat tzfinal.tmp)
+rm tzfinal.tmp
 
 ln -sf /usr/share/zoneinfo/$TZuser /etc/localtime
 hwclock --systohc

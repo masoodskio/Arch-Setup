@@ -24,7 +24,7 @@ sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.backup
 rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 
 dialog --infobox "Installing System..." 4 40
-pacstrap /mnt base
+pacstrap /mnt base base-devel
 dialog --infobox "Done" 4 40
 
 dialog --infobox "Generating fstab..." 4 40

@@ -8,7 +8,8 @@ ln -sf /usr/share/zoneinfo/$TZuser /etc/localtime
 hwclock --systohc
 
 dialog  --infobox "Installing bootloader and other important utils" 4 40
-pacman --noconfirm --needed -S zsh grml-zsh-config iw wpa_supplicant grub efibootmgr intel-ucode dosfstools os-prober gvim ntfs-3g pulseaudo pulseaudio-alsa pamixer ponymix alsa-utils mesa ttf-dejavu
+pacman --noconfirm --needed -S zsh grml-zsh-config iw wpa_supplicant grub efibootmgr intel-ucode dosfstools os-prober vim ntfs-3g feh
+pacman --noconfirm --needed -S pulseaudio pulseaudio-alsa pamixer ponymix alsa-utils mesa ttf-dejavu xorg-server xorg-xset xorg-xinit unrar unzip w3m wget git exfat-utils
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Archlinux
 
@@ -39,6 +40,6 @@ do
 done
 
 dialog --infobox "Adding user \"$name\"..." 4 50
-useradd -m -g users 'G wheel -s /bin/zsh $name
+useradd -m -g users -G wheel -s /bin/zsh $name
 echo "$name:$pass1" | chpasswd  
 

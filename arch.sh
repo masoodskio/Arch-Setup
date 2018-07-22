@@ -21,7 +21,7 @@ timedatectl set-ntp true
 dialog --infobox "Updating mirrorlist, this may take a while..." 4 40
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
 sed -i 's/^#Server/Server/' /etc/pacman.d/mirrorlist.backup
-rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
+#rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 
 dialog --infobox "Installing System..." 4 40
 pacstrap /mnt base base-devel

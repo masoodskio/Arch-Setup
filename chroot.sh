@@ -12,8 +12,8 @@ echo "en_US ISO-8859-1" >> /etc/locale.gen
 locale-gen
 
 dialog  --infobox "Installing bootloader and other important utils" 4 40
-pacman --noconfirm --needed -S zsh grml-zsh-config iw wpa_supplicant grub neovim efibootmgr intel-ucode dosfstools os-prober ntfs-3g exfat-utils
-pacman --noconfirm --needed -S git pulseaudio pulseaudio-alsa pamixer ponymix alsa-utils ttf-dejavu xorg-server xorg-xset xorg-xinit mesa xf86-video-intel unrar unzip w3m wget feh
+pacman --noconfirm --needed -S zsh iw wpa_supplicant grub efibootmgr intel-ucode dosfstools os-prober ntfs-3g exfat-utils networkmanager network-manager-applet gnome-keyring
+pacman --noconfirm --needed -S git pulseaudio pulseaudio-alsa pamixer ponymix alsa-utils ttf-dejavu xorg-server xorg-xset xorg-xinit unrar unzip w3m wget feh gvim mesa
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Archlinux
 sed -i 's/^GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="acpi_osi='\''!Windows 2012'\''"/' /etc/default/grub
@@ -42,4 +42,3 @@ done
 dialog --infobox "Adding user \"$name\"..." 4 50
 useradd -m -g users -G wheel -s /bin/zsh $name
 echo "$name:$pass1" | chpasswd  
-

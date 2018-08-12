@@ -9,7 +9,6 @@ RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-
 dialog --defaultno --title "Partition/Mount HD" --yesno "Have you partitioned and mounted all your filesystems?.\n\nPress No if you haven't otherwise press Yes to continue"  10 60 ||  exit
 
 dialog --no-cancel --inputbox "Enter a name for your computer." 10 60 2> comp

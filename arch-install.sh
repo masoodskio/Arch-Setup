@@ -48,11 +48,21 @@ check_mountpoints ()
 	fi
 }
 
-start_install () {
+sort_mirrors () 
+{
+	cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup;
+	awk '/^## United States$/{f=1}f==0{next}/^$/{exit}{print substr($0, 2)}' /etc/pacman.d/mirrorlist.backup;
+	rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist;
+	echo "Mirrors sorted";
+	
+}
+start_install () 
+{
 	if ready_to_install $1;
 	then
 	        timedatectl set-ntp true;	
 		echo "Ready!";
+		sort_mirrors;
 	else 
 		echo "Not Ready";
 		exit

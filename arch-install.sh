@@ -13,6 +13,7 @@ ready_to_install ()
 		echo "Connected";
 		if check_mountpoints $1;
 			then
+			echo "Partitions are mounted";
  			true;
 		else
 		       	echo "Your partitions aren't mounted. Please mount root to /mnt and boot to /mnt/boot";
@@ -49,7 +50,8 @@ check_mountpoints ()
 
 start_install () {
 	if ready_to_install $1;
-	then 
+	then
+	        timedatectl set-ntp true;	
 		echo "Ready!";
 	else 
 		echo "Not Ready";

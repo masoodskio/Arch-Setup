@@ -50,6 +50,8 @@ check_mountpoints ()
 
 sort_mirrors () 
 {
+	pacman -S --noconfirm pacman-contrib;
+	echo "Sorting Mirrors..."
 	curl -s "https://www.archlinux.org/mirrorlist/?country=US&protocol=https&ip_version=4&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
 	echo "Mirrors sorted";
 	

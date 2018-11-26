@@ -59,26 +59,42 @@ sort_mirrors ()
 
 install_arch () 
 {
-	PS3='Please enter your choice: '
-	options=("Option 1" "Option 2" "Option 3" "Quit")
+	PS3='Choose which kernel to install (Stable is recomended): '
+	options=("Stable" "Hardened (linux-hardened)" "Longterm (linux-lts)" "ZEN (linux-zen)" "Quit")
 		select opt in "${options[@]}"
 		do
     			case $opt in
-        			"Option 1")
-            				echo "you chose choice 1"
+        			"Stable")
+            				echo "You chose $opt";
+					KERNEL="linux";
+					break;
 			            	;;
-        			"Option 2")
-            				echo "you chose choice 2"
-            				;;
-        			"Option 3")
-            				echo "you chose choice $REPLY which is $opt"
-            				;;
+				"Hardened (linux-hardened)")
+            				echo "You chose $opt";
+					KERNEL="linux-hardened";
+            				break;
+					;;
+				"Longterm (linux-lts)")
+            				echo "You chose $opt";
+					KERNEL="linux-lts";
+            				break;
+					;;
+				"ZEN (linux-zen)")
+					echo "You chose $opt";
+					KERNEL="linux-zen";
+					break;
+					;;
         			"Quit")
             				break
             				;;
         			*) echo "invalid option $REPLY";;
     			esac
-		done	
+		done
+
+		echo $KERNEL;
+		unset opt;
+		unset KERNEL;
+			
 }
 
 start_install () 

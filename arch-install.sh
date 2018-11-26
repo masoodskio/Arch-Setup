@@ -50,9 +50,7 @@ check_mountpoints ()
 
 sort_mirrors () 
 {
-	cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup;
-	awk '/^## United States$/{f=1}f==0{next}/^$/{exit}{print substr($0, 2)}' /etc/pacman.d/mirrorlist.backup;
-	rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist;
+	curl -s "https://www.archlinux.org/mirrorlist/?country=US&protocol=https&ip_version=4&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' | rankmirrors -n 5 -
 	echo "Mirrors sorted";
 	
 }

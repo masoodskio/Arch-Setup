@@ -97,12 +97,16 @@ install_arch ()
 
 start_install () 
 {
+	echo "Welcome to Sofian's Arch Install, this is suppsoed to automate the installation of Archlinux. Please make sure your partitions are mounted. This assumes root is mounted /mnt and boot is mounted to /mnt/boot. Free free to mount any additional partitions. If you need to make changes, feel free to edit this script."
 	if ready_to_install $1;
 	then
 	        timedatectl set-ntp true;	
 		echo "Ready!";
 		sort_mirrors;
 		install_arch;
+
+		genfstab -U /mnt >> /mnt/etc/fstab
+
 	else 
 		echo "Not Ready";
 		exit

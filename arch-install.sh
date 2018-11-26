@@ -97,7 +97,6 @@ install_arch ()
 
 
 create_hostfile () {
-
 	echo -e "Creating hostname file";
 	if [ -e '/mnt/etc/hostname' ]; then
 		rm /mnt/etc/hostname
@@ -114,6 +113,7 @@ create_hostfile () {
 
 	echo -e "Updating hosts file"
 	
+	echo -e "127.0.0.1\tlocalhost\n::1\tlocalhost\n127.0.1.1\t""$hostname"".localdomain ""$hostname" > /mnt/etc/hosts
 
 	echo -e "hosts file updated"
 	unset hostname;
@@ -136,9 +136,9 @@ create_chroot () {
 start_install () 
 {
 	echo -e "Welcome to Sofian's Arch Install, this automates the installation of Archlinux."
-        echo -e "\n Please make sure your partitions are mounted." 
-	echo -e "\n Note: This assumes root is mounted /mnt and boot is mounted to /mnt/boot. Free free to mount any additional partitions." 
-	echo -e "\n If you need to make changes, feel free to edit this script."
+        echo -e "\nPlease make sure your partitions are mounted." 
+	echo -e "\nNote: This assumes root is mounted /mnt and boot is mounted to /mnt/boot. Free free to mount any additional partitions." 
+	echo -e "\nIf you need to make changes, feel free to edit this script."
 	if ready_to_install $1;
 	then
 	        timedatectl set-ntp true;	

@@ -66,22 +66,22 @@ install_arch ()
     			case $opt in
         			"Stable")
             				echo "You chose $opt";
-					KERNEL="linux";
+					pacstrap /mnt base base-devel
 					break;
 			            	;;
 				"Hardened (linux-hardened)")
             				echo "You chose $opt";
-					KERNEL="linux-hardened";
+					pacstrap /mnt $(pacman -Sqg base base-devel | sed 's/^linux$/&-hardened/') 
             				break;
 					;;
 				"Longterm (linux-lts)")
             				echo "You chose $opt";
-					KERNEL="linux-lts";
+					pacstrap /mnt $(pacman -Sqg base  base-devel | sed 's/^linux$/&-lts/') 
             				break;
 					;;
 				"ZEN (linux-zen)")
 					echo "You chose $opt";
-					KERNEL="linux-zen";
+					pacstrap /mnt $(pacman -Sqg base base-devel | sed 's/^linux$/&-zen/') 
 					break;
 					;;
         			"Quit")
@@ -91,9 +91,7 @@ install_arch ()
     			esac
 		done
 
-		echo $KERNEL;
 		unset opt;
-		unset KERNEL;
 			
 }
 

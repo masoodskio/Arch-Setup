@@ -95,6 +95,30 @@ install_arch ()
 			
 }
 
+
+create_hostfile () {
+
+	echo -e "Creating hostname file";
+	if [ -e '/mnt/etc/hostname' ]; then
+		rm /mnt/etc/hostname
+	fi
+
+	touch /mnt/etc/hostname;
+        
+	echo -n "Enter a hostname and press [Enter]: "
+        read hostname
+
+	echo -e $hostname> /mnt/etc/hostname
+
+	echo -e "Hostname file created";
+
+	echo -e "Updating hosts file"
+	
+
+	echo -e "hosts file updated"
+	unset hostname;
+}
+
 create_chroot () {
 
 	echo -e "Setting up chroot settings";
@@ -108,6 +132,7 @@ create_chroot () {
 
 	echo -e "Chroot config created";
 }
+
 start_install () 
 {
 	echo -e "Welcome to Sofian's Arch Install, this automates the installation of Archlinux."
@@ -122,8 +147,9 @@ start_install ()
 		#install_arch;
 
 		#genfstab -U /mnt >> /mnt/etc/fstab;
-		echo -e "127.0.0.1\tlocalhost\n::1\tlocalhost\n127.0.1.1\t""$hostname"".localdomain ""$hostname" > /mnt/etc/hosts;
-		create_chroot;
+		#echo -e "127.0.0.1\tlocalhost\n::1\tlocalhost\n127.0.1.1\t""$hostname"".localdomain ""$hostname" > /mnt/etc/hosts;
+		create_hostfile
+		#create_chroot;
 		#umount -R /mnt;
 	else 
 		echo "Not Ready";

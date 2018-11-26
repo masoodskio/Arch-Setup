@@ -95,18 +95,35 @@ install_arch ()
 			
 }
 
+create_chroot () {
+
+	echo -e "Setting up chroot settings";
+	if [ -e '/mnt/chroot-config.sh' ]; then
+		rm /mnt/chroot-config.sh
+	fi
+
+	touch /mnt/chroot-config.sh;
+	
+	echo -e ""> /mnt/chroot.config.sh
+
+	echo -e "Chroot config created";
+}
 start_install () 
 {
-	echo "Welcome to Sofian's Arch Install, this is suppsoed to automate the installation of Archlinux. Please make sure your partitions are mounted. This assumes root is mounted /mnt and boot is mounted to /mnt/boot. Free free to mount any additional partitions. If you need to make changes, feel free to edit this script."
+	echo -e "Welcome to Sofian's Arch Install, this automates the installation of Archlinux."
+        echo -e "\n Please make sure your partitions are mounted." 
+	echo -e "\n Note: This assumes root is mounted /mnt and boot is mounted to /mnt/boot. Free free to mount any additional partitions." 
+	echo -e "\n If you need to make changes, feel free to edit this script."
 	if ready_to_install $1;
 	then
 	        timedatectl set-ntp true;	
 		echo "Ready!";
-		sort_mirrors;
-		install_arch;
+		#sort_mirrors;
+		#install_arch;
 
-		genfstab -U /mnt >> /mnt/etc/fstab
-
+		#genfstab -U /mnt >> /mnt/etc/fstab;
+		create_chroot;
+		#umount -R /mnt;
 	else 
 		echo "Not Ready";
 		exit

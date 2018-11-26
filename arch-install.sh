@@ -104,7 +104,7 @@ create_chroot () {
 
 	touch /mnt/chroot-config.sh;
 	
-	echo -e ""> /mnt/chroot.config.sh
+	echo -e ""> /mnt/chroot-config.sh
 
 	echo -e "Chroot config created";
 }
@@ -122,6 +122,7 @@ start_install ()
 		#install_arch;
 
 		#genfstab -U /mnt >> /mnt/etc/fstab;
+		echo -e "127.0.0.1\tlocalhost\n::1\tlocalhost\n127.0.1.1\t""$hostname"".localdomain ""$hostname" > /mnt/etc/hosts;
 		create_chroot;
 		#umount -R /mnt;
 	else 

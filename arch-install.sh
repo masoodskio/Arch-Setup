@@ -56,6 +56,31 @@ sort_mirrors ()
 	echo "Mirrors sorted";
 	
 }
+
+install_arch () 
+{
+	PS3='Please enter your choice: '
+	options=("Option 1" "Option 2" "Option 3" "Quit")
+		select opt in "${options[@]}"
+		do
+    			case $opt in
+        			"Option 1")
+            				echo "you chose choice 1"
+			            	;;
+        			"Option 2")
+            				echo "you chose choice 2"
+            				;;
+        			"Option 3")
+            				echo "you chose choice $REPLY which is $opt"
+            				;;
+        			"Quit")
+            				break
+            				;;
+        			*) echo "invalid option $REPLY";;
+    			esac
+		done	
+}
+
 start_install () 
 {
 	if ready_to_install $1;
@@ -63,6 +88,7 @@ start_install ()
 	        timedatectl set-ntp true;	
 		echo "Ready!";
 		sort_mirrors;
+		install_arch;
 	else 
 		echo "Not Ready";
 		exit

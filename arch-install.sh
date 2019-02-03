@@ -118,7 +118,22 @@ create_hostfile () {
 	echo -e "hosts file updated"
 	unset hostname;
 }
+update_device_nodes () {
 
+echo -e "Updating Device Node Names"
+if [ -e '/mnt/etc/udev/rules.d/10-network.rules' ]; then
+		rm /mnt/etc/udev/rules.d/10-network.rules
+fi
+
+WIRED="$(cat /sys/class/net/enp0s25/address)"
+WIFI="$(cat /sys/class/net/wlp3s0/address)"
+
+
+echo -e "SUBSYSTEM=="net", ACTION=="add", ATTR{address}==\"$WIRED\", NAME="wired0"
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}==\"$WIFI\", NAME="wifi0"" > /mnt/etc/udev/rules.d/10-network.rules
+
+echo -e "Updated Device Node Names"
+}
 create_chroot_config () {
 
 	echo -e "Setting up chroot settings";
@@ -152,6 +167,9 @@ start_install ()
 
 		genfstab -U /mnt >> /mnt/etc/fstab;
 		create_hostfile;
+
+		#Update_device_nodes is a custom function to rename device interfaces name. It's a personal preference so it's been commented out by default.
+		#update_device_nodes;
 		create_chroot_config;
 
 		arch-chroot /mnt bash chroot-config.sh && rm /mnt/chroot-config.sh

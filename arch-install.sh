@@ -129,8 +129,8 @@ WIRED="$(cat /sys/class/net/enp0s25/address)"
 WIFI="$(cat /sys/class/net/wlp3s0/address)"
 
 
-echo -e "SUBSYSTEM=="net", ACTION=="add", ATTR{address}==\"$WIRED\", NAME="wired0"
-SUBSYSTEM=="net", ACTION=="add", ATTR{address}==\"$WIFI\", NAME="wifi0"" > /mnt/etc/udev/rules.d/10-network.rules
+echo -e "SUBSYSTEM=="net", ACTION=="add", ATTR{address}==\"$WIRED\", NAME=\"wired0\"
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}==\"$WIFI\", NAME=\"wifi0\"" > /mnt/etc/udev/rules.d/10-network.rules
 
 echo -e "Updated Device Node Names"
 }
@@ -143,7 +143,7 @@ create_chroot_config () {
 
 	touch /mnt/chroot-config.sh;
 
-	echo -e "pacman --noconfirm -S sudo neovim zsh grml-zsh-config iw dialog wpa_supplicant grub efibootmgr dosfstools os-prober ntfs-3g exfat-utils networkmanager gnome-keyring unrar unzip w3m wget \n\nPS3='Do you want to use the default timezone (America/Chicago)?:'\noptions=("\""Yes"\"" "\""No"\"")\n\tselect opt in "\""\${options[@]}"\""\n\tdo\n\t\tcase \$opt in\n\t\t\t"\""Yes"\"")\n\t\t\t\techo "\""You chose \$opt"\"";\n\t\t\t\tZONE="\""America/Chicago"\"";\n\t\t\t\tbreak;\n\t\t\t\t;;\n\t\t\t"\""No"\"")\n\t\t\t\techo "\""You chose \$opt"\"";\n\t\t\t\tZONE=\$(tzselect)\n\t\t\t\tbreak;\n\t\t\t\t;;\n\t\t\t\t*) echo "\""invalid option \$REPLY"\"";\n\t\tesac\n\tdone\nunset opt;\nln -sf /usr/share/zoneinfo/\$ZONE /etc/localtime\nunset ZONE;\nhwclock --systohc\n\n\necho "\""en_US.UTF-8 UTF-8"\"" >> /etc/locale.gen\necho "\""en_US ISO-8859-1"\"" >> /etc/locale.gen\nlocale-gen\necho "\""LANG=en_US.UTF-8"\"" >> /etc/locale.conf\n
+	echo -e "pacman --noconfirm -S sudo neovim zsh grml-zsh-config grub efibootmgr dosfstools os-prober ntfs-3g exfat-utils networkmanager unrar unzip w3m wget \n\nPS3='Do you want to use the default timezone (America/Chicago)?:'\noptions=("\""Yes"\"" "\""No"\"")\n\tselect opt in "\""\${options[@]}"\""\n\tdo\n\t\tcase \$opt in\n\t\t\t"\""Yes"\"")\n\t\t\t\techo "\""You chose \$opt"\"";\n\t\t\t\tZONE="\""America/Chicago"\"";\n\t\t\t\tbreak;\n\t\t\t\t;;\n\t\t\t"\""No"\"")\n\t\t\t\techo "\""You chose \$opt"\"";\n\t\t\t\tZONE=\$(tzselect)\n\t\t\t\tbreak;\n\t\t\t\t;;\n\t\t\t\t*) echo "\""invalid option \$REPLY"\"";\n\t\tesac\n\tdone\nunset opt;\nln -sf /usr/share/zoneinfo/\$ZONE /etc/localtime\nunset ZONE;\nhwclock --systohc\n\n\necho "\""en_US.UTF-8 UTF-8"\"" >> /etc/locale.gen\necho "\""en_US ISO-8859-1"\"" >> /etc/locale.gen\nlocale-gen\necho "\""LANG=en_US.UTF-8"\"" >> /etc/locale.conf\n
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=Archlinux\n
 sed -i 's/^GRUB_CMDLINE_LINUX="\"""\""/GRUB_CMDLINE_LINUX="\""acpi_osi='\''!Windows 2012'\''"\""/' /etc/default/grub
